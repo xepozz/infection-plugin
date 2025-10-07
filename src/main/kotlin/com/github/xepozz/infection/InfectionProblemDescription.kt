@@ -11,8 +11,7 @@ class InfectionProblemDescription(
     var myMessage: String,
     val myFile: String,
     val code: String,
-    val help: String,
-    val notes: List<String>,
+    val content: String,
 ) : QualityToolXmlMessageProcessor.ProblemDescription(
     severity,
     lineNumber,

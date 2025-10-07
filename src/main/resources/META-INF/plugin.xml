@@ -32,15 +32,15 @@
                 implementationClass="com.github.xepozz.infection.InfectionValidationInspection"
                 key="inspection.infection.display.name"/>
 
-        <globalInspection
-                language="PHP"
-                shortName="InfectionGlobal"
-                groupPath="PHP"
-                groupName="Quality tools"
-                enabledByDefault="true"
-                level="WEAK WARNING"
-                implementationClass="com.github.xepozz.infection.InfectionGlobalInspection"
-                key="inspection.infection.global.display.name"/>
+<!--        <globalInspection-->
+<!--                language="PHP"-->
+<!--                shortName="InfectionGlobal"-->
+<!--                groupPath="PHP"-->
+<!--                groupName="Quality tools"-->
+<!--                enabledByDefault="true"-->
+<!--                level="WEAK WARNING"-->
+<!--                implementationClass="com.github.xepozz.infection.InfectionGlobalInspection"-->
+<!--                key="inspection.infection.global.display.name"/>-->
 
         <externalAnnotator
                 language="PHP"

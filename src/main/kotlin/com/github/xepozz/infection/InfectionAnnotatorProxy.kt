@@ -2,39 +2,44 @@ package com.github.xepozz.infection
 
 import com.intellij.codeInspection.InspectionProfile
 import com.intellij.openapi.diagnostic.Logger
+import com.intellij.openapi.editor.Editor
 import com.intellij.openapi.project.Project
 import com.intellij.psi.PsiFile
+import com.jetbrains.php.config.interpreters.PhpSdkFileTransfer
 import com.jetbrains.php.tools.quality.QualityToolAnnotator
 import com.jetbrains.php.tools.quality.QualityToolAnnotatorInfo
 import com.jetbrains.php.tools.quality.QualityToolConfiguration
+import com.jetbrains.php.tools.quality.QualityToolMessageProcessor
 
-open class InfectionAnnotatorProxy : QualityToolAnnotator<com.github.xepozz.infection.InfectionValidationInspection>() {
+open class InfectionAnnotatorProxy : QualityToolAnnotator<InfectionValidationInspection>() {
     companion object {
         private val LOG: Logger = Logger.getInstance(InfectionAnnotatorProxy::class.java)
 
         val INSTANCE = InfectionAnnotatorProxy()
 
-        fun getFormatOptions(projectPath: String, files: Collection<String>) = buildList {
-            add("--workspace=$projectPath")
-
-            add("fmt")
-            addAll(files)
-        }
-//            .apply { println("format options: ${this.joinToString(" ")}") }
-
         fun getAnalyzeOptions(projectPath: String, filePath: String?) = buildList {
-            add("--workspace=$projectPath")
-
-            add("analyze")
-            add("--reporting-format=json")
+//            ./vendor/bin/infection run --no-progress -q --logger-gitlab=$(pwd)/results.json
+            add("run")
+            add("--no-progress")
+            add("-q")
+            add("--logger-gitlab=$projectPath/results.json")
 //            filePath?.let { add(it) }
         }
-//            .apply { println("analyze options: ${this.joinToString(" ")}") }
+            .apply { println("analyze options: ${this.joinToString(" ")}, file: $filePath") }
     }
 
+    override fun collectInformation(
+        file: PsiFile,
+        editor: Editor,
+        hasErrors: Boolean
+    ): QualityToolAnnotatorInfo<InfectionValidationInspection>? {
+        val collectInformation = super.collectInformation(file, editor, hasErrors)
+        println("collectInformation: $collectInformation for file: ${file.virtualFile.path}")
+        return collectInformation
+    }
     override fun getOptions(
         filePath: String?,
-        inspection: com.github.xepozz.infection.InfectionValidationInspection,
+        inspection: InfectionValidationInspection,
         profile: InspectionProfile?,
         project: Project,
     ): List<String> {
@@ -45,12 +50,12 @@ open class InfectionAnnotatorProxy : QualityToolAnnotator<com.github.xepozz.infe
 
     override fun createAnnotatorInfo(
         file: PsiFile?,
-        tool: com.github.xepozz.infection.InfectionValidationInspection,
+        tool: InfectionValidationInspection,
         inspectionProfile: InspectionProfile,
         project: Project,
         configuration: QualityToolConfiguration,
         isOnTheFly: Boolean,
-    ): QualityToolAnnotatorInfo<com.github.xepozz.infection.InfectionValidationInspection> {
+    ): QualityToolAnnotatorInfo<InfectionValidationInspection> {
         if (!isOnTheFly) {
             LOG.warn("isOnTheFly is False")
         }
@@ -58,10 +63,10 @@ open class InfectionAnnotatorProxy : QualityToolAnnotator<com.github.xepozz.infe
         return QualityToolAnnotatorInfo(file, tool, inspectionProfile, project, configuration, false)
     }
 
-    override fun getQualityToolType() = _root_ide_package_.com.github.xepozz.infection.InfectionQualityToolType.INSTANCE
+    override fun getQualityToolType() = InfectionQualityToolType.INSTANCE
 
-    override fun createMessageProcessor(collectedInfo: QualityToolAnnotatorInfo<com.github.xepozz.infection.InfectionValidationInspection>) =
-        _root_ide_package_.com.github.xepozz.infection.InfectionMessageProcessor(collectedInfo)
+    override fun createMessageProcessor(collectedInfo: QualityToolAnnotatorInfo<InfectionValidationInspection>) =
+        InfectionMessageProcessor(collectedInfo)
 
     override fun getPairedBatchInspectionShortName() = qualityToolType.inspectionId
 

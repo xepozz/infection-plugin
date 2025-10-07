@@ -36,20 +36,23 @@ class InfectionQualityToolType : QualityToolType<InfectionConfiguration>() {
 
     override fun createConfiguration() = InfectionConfiguration()
 
-    override fun getInspectionId() = "InfectionGlobal"
+//    override fun getInspectionId() = "InfectionGlobal"
 
     override fun getHelpTopic() = "reference.settings.php.infection"
 
-    override fun getGlobalTool(project: Project, profile: InspectionProfile?): QualityToolValidationGlobalInspection? {
-        val newProfile = profile ?: InspectionProjectProfileManager.getInstance(project).currentProfile
+//    override fun getGlobalTool(project: Project, profile: InspectionProfile?): QualityToolValidationGlobalInspection? {
+//        val newProfile = profile ?: InspectionProjectProfileManager.getInstance(project).currentProfile
+//
+//        println("newProfile: $newProfile")
+//        val inspectionTool = newProfile.getInspectionTool(inspectionId, project) ?: return null
+//
+//        println("inspectionTool: $inspectionTool")
+//        return tryCast(inspectionTool.tool, InfectionGlobalInspection::class.java)
+//            .apply { println("tryCast: $this") }
+//    }
 
-        val inspectionTool = newProfile.getInspectionTool(inspectionId, project) ?: return null
-
-        return tryCast(inspectionTool.tool, InfectionGlobalInspection::class.java)
-    }
-
-    override fun getInspectionShortName(project: Project) = getGlobalTool(project, null)?.shortName
-        ?: inspection.shortName
+//    override fun getInspectionShortName(project: Project) = getGlobalTool(project, null)?.shortName
+//        ?: inspection.shortName
 
     companion object {
         val INSTANCE = InfectionQualityToolType()

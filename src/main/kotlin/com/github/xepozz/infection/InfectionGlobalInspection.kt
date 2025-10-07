@@ -8,6 +8,9 @@ import com.jetbrains.php.tools.quality.QualityToolXmlMessageProcessor.ProblemDes
 class InfectionGlobalInspection : QualityToolValidationGlobalInspection(), ExternalAnnotatorBatchInspection {
     override fun getAnnotator() = InfectionAnnotatorProxy.INSTANCE
 
+    override fun worksInBatchModeOnly(): Boolean {
+        return true
+    }
     override fun getKey() = INFECTION_ANNOTATOR_INFO
 
     override fun getSharedLocalInspectionTool() = InfectionValidationInspection()
