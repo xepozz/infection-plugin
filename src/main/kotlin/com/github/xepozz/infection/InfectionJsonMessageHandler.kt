@@ -1,6 +1,7 @@
 package com.github.xepozz.infection
 
 import com.google.gson.JsonParser
+import com.intellij.openapi.util.TextRange
 import com.jetbrains.php.tools.quality.QualityToolMessage
 
 class InfectionJsonMessageHandler(val project: com.intellij.openapi.project.Project) {
@@ -14,14 +15,15 @@ class InfectionJsonMessageHandler(val project: com.intellij.openapi.project.Proj
                 val location = issue.get("location").asJsonObject
 
                 InfectionProblemDescription(
-                    levelToSeverity(issue.get("severity").asString),
-                    location.get("lines").asJsonObject.get("begin").asInt,
-                    0,
-                    0,
-                    "Infection: ${issue.get("description").asString.trimEnd('.')}",
-                    "${project.basePath}/${location.get("path").asString}",
-                    issue.get("check_name").asString,
-                    issue.get("content").asString,
+                    severity = levelToSeverity(issue.get("severity").asString),
+                    startLine = location.get("start").asJsonObject.get("line").asInt,
+                    startColumn = location.get("start").asJsonObject.get("column").asInt,
+                    endLine = location.get("end").asJsonObject.get("line").asInt,
+                    endColumn = location.get("end").asJsonObject.get("column").asInt,
+                    myMessage = "Infection: ${issue.get("description").asString.trimEnd('.')}",
+                    myFile = "${project.basePath}/${location.get("path").asString}",
+                    code = issue.get("check_name").asString,
+                    content = issue.get("content").asString,
                 )
             }
     }

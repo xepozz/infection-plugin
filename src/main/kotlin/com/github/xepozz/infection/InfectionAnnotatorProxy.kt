@@ -22,7 +22,7 @@ open class InfectionAnnotatorProxy : QualityToolAnnotator<InfectionValidationIns
             add("run")
             add("--no-progress")
             add("-q")
-            add("--logger-gitlab=$projectPath/results.json")
+            add("--logger-gitlab=php://stdout")
 //            filePath?.let { add(it) }
         }
             .apply { println("analyze options: ${this.joinToString(" ")}, file: $filePath") }
