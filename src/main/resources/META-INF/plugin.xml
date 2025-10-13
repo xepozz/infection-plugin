@@ -48,9 +48,12 @@
     </extensions>
 
     <extensions defaultExtensionNs="com.jetbrains.php">
-        <tools.quality.type implementation="com.github.xepozz.infection.InfectionQualityToolType"/>
-        <composerConfigClient implementation="com.github.xepozz.infection.composer.InfectionComposerConfig"/>
-        <openSettingsProvider implementation="com.github.xepozz.infection.InfectionOpenSettingsProvider"/>
+        <tools.quality.type
+                implementation="com.github.xepozz.infection.InfectionQualityToolType"/>
+        <composerConfigClient
+                implementation="com.github.xepozz.infection.composer.InfectionComposerConfig"/>
+        <openSettingsProvider
+                implementation="com.github.xepozz.infection.InfectionOpenSettingsProvider"/>
         <config.interpreters.PhpInterpretersStateListener
                 implementation="com.github.xepozz.infection.InfectionInterpreterStateListener"/>
     </extensions>
