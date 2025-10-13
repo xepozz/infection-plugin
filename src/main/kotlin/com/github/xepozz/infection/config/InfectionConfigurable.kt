@@ -56,17 +56,6 @@ class InfectionConfigurable(val project: Project) : Configurable {
                                 .setToolEnabled(getInspectionShortName(), it)
                         })
                 }
-                row {
-                    cell(OnOffButton())
-                        .label("Linter")
-                        .bindSelected({ settings.linterEnabled }, { settings.linterEnabled = (it) })
-                }.visible(true).enabled(false)
-
-                row {
-                    cell(OnOffButton())
-                        .label("Formatter")
-                        .bindSelected({ settings.formatterEnabled }, { settings.formatterEnabled = (it) })
-                }
             }
             group("Options") {
                 row {

@@ -32,19 +32,28 @@
                 implementationClass="com.github.xepozz.infection.InfectionValidationInspection"
                 key="inspection.infection.display.name"/>
 
-<!--        <globalInspection-->
-<!--                language="PHP"-->
-<!--                shortName="InfectionGlobal"-->
-<!--                groupPath="PHP"-->
-<!--                groupName="Quality tools"-->
-<!--                enabledByDefault="true"-->
-<!--                level="WEAK WARNING"-->
-<!--                implementationClass="com.github.xepozz.infection.InfectionGlobalInspection"-->
-<!--                key="inspection.infection.global.display.name"/>-->
+        <!--        <globalInspection-->
+        <!--                language="PHP"-->
+        <!--                shortName="InfectionGlobal"-->
+        <!--                groupPath="PHP"-->
+        <!--                groupName="Quality tools"-->
+        <!--                enabledByDefault="true"-->
+        <!--                level="WEAK WARNING"-->
+        <!--                implementationClass="com.github.xepozz.infection.InfectionGlobalInspection"-->
+        <!--                key="inspection.infection.global.display.name"/>-->
 
         <externalAnnotator
                 language="PHP"
                 implementationClass="com.github.xepozz.infection.InfectionAnnotatorProxy"/>
+
+        <configurationType
+                implementation="com.github.xepozz.infection.tests.run.InfectionRunConfigurationType"/>
+        <runConfigurationProducer
+                implementation="com.github.xepozz.infection.tests.run.InfectionRunConfigurationProducer"/>
+        <runAnything.executionProvider
+                implementation="com.github.xepozz.infection.tests.runAnything.InfectionRunAnythingProvider"/>
+
+        <programRunner implementation="com.github.xepozz.infection.tests.run.InfectionDebugRunner"/>
     </extensions>
 
     <extensions defaultExtensionNs="com.jetbrains.php">
@@ -56,6 +65,8 @@
                 implementation="com.github.xepozz.infection.InfectionOpenSettingsProvider"/>
         <config.interpreters.PhpInterpretersStateListener
                 implementation="com.github.xepozz.infection.InfectionInterpreterStateListener"/>
+        <testFrameworkType
+                implementation="com.github.xepozz.infection.tests.InfectionFrameworkType"/>
     </extensions>
 
     <extensionPoints>

@@ -5,11 +5,9 @@ import com.intellij.openapi.diagnostic.Logger
 import com.intellij.openapi.editor.Editor
 import com.intellij.openapi.project.Project
 import com.intellij.psi.PsiFile
-import com.jetbrains.php.config.interpreters.PhpSdkFileTransfer
 import com.jetbrains.php.tools.quality.QualityToolAnnotator
 import com.jetbrains.php.tools.quality.QualityToolAnnotatorInfo
 import com.jetbrains.php.tools.quality.QualityToolConfiguration
-import com.jetbrains.php.tools.quality.QualityToolMessageProcessor
 
 open class InfectionAnnotatorProxy : QualityToolAnnotator<InfectionValidationInspection>() {
     companion object {
@@ -25,7 +23,7 @@ open class InfectionAnnotatorProxy : QualityToolAnnotator<InfectionValidationIns
             add("--logger-gitlab=php://stdout")
 //            filePath?.let { add(it) }
         }
-            .apply { println("analyze options: ${this.joinToString(" ")}, file: $filePath") }
+//            .apply { println("analyze options: ${this.joinToString(" ")}, file: $filePath") }
     }
 
     override fun collectInformation(
@@ -34,7 +32,7 @@ open class InfectionAnnotatorProxy : QualityToolAnnotator<InfectionValidationIns
         hasErrors: Boolean
     ): QualityToolAnnotatorInfo<InfectionValidationInspection>? {
         val collectInformation = super.collectInformation(file, editor, hasErrors)
-        println("collectInformation: $collectInformation for file: ${file.virtualFile.path}")
+//        println("collectInformation: $collectInformation for file: ${file.virtualFile.path}")
         return collectInformation
     }
     override fun getOptions(

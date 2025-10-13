@@ -14,8 +14,6 @@ import com.jetbrains.php.tools.quality.QualityToolProjectConfiguration
 @State(name = "InfectionProjectConfiguration", storages = [Storage(StoragePathMacros.WORKSPACE_FILE)])
 class InfectionProjectConfiguration : QualityToolProjectConfiguration<InfectionConfiguration>(),
     PersistentStateComponent<InfectionProjectConfiguration> {
-    var linterEnabled = true
-    var formatterEnabled = true
 
     override fun getState() = this
 
